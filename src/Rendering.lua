@@ -26,9 +26,6 @@ function Rendering:renderResource(resource)
 end
 
 function Rendering:render()
-
-    love.graphics.rectangle('line', self.builder.x, self.builder.y, 20, 20)
-
     love.graphics.setColor(1,1,1)
 
     local assets = self.level.world:getItems()
@@ -40,4 +37,6 @@ function Rendering:render()
             self:renderResource(asset)
         end
     end
+
+    love.graphics.rectangle('line', self.builder.sx, self.builder.sy, self.builder.w, self.builder.h)
 end

@@ -12,32 +12,60 @@ require 'src/LevelBuilder'
 
 local Builder
 
+local function clearInput()
+    love.keyboard.keysPressed = {}
+    love.mouse.buttonsPressed = {}
+    love.mouse.buttonsReleased = {}
+    love.mouse.wheelmoved = 0
+end
+
 function love.load()
     love.filesystem.setIdentity('level-builder')
     love.window.setTitle('level builder')
-
     love.window.setMode(1280, 720, {fullscreen = false})
+    clearInput()
+
     Builder = LevelBuilder()
 end
 
 function love.update(dt)
     Builder:update(dt)
-end
-
-function love.mousepressed(x, y, button)
-    Builder:mouse(x, y, button)
-end
-
-function love.wheelmoved(x, y)
-    Builder:scroll(y)
-end
-
-function love.keypressed(key, code)
-    if key == 'escape' then
-        love.event.quit()
-    end
+    clearInput()
 end
 
 function love.draw()
     Builder:render()
+end
+
+function love.mousepressed(x, y, button)
+    love.mouse.buttonsPressed[button] = true
+    Gui:mousepress(x, y, button)
+end
+
+function love.mousereleased(x, y, button)
+    love.mouse.buttonsReleased[button] = true
+    Gui:mouserelease(x, y, button)
+end
+
+function love.wheelmoved(x, y)
+    love.mouse.wheelmoved = y
+    Gui:mousewheel(x, y, button)
+end
+
+function love.keypressed(key, code)
+    love.keyboard.keysPressed[key] = true
+    if key == 'escape' then
+        love.event.quit()
+    end
+    if Gui.focus then
+        Gui:keypress(key, code)
+    end
+end
+
+function love.mouse.wasPressed(button)
+    return love.mouse.buttonsPressed[button]
+end
+
+function love.mouse.wasReleased(button)
+    return love.mouse.buttonsReleased[button]
 end
