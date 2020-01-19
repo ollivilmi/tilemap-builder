@@ -3,6 +3,7 @@ Rendering = Class{}
 function Rendering:init(builder)
     self.builder = builder
     self.level = builder.level
+    self.cursor = builder.cursor
 
     self.tileTextures = {
         r = love.graphics.newImage('src/assets/tile/rock.png'),
@@ -38,5 +39,5 @@ function Rendering:render()
         end
     end
 
-    love.graphics.rectangle('line', self.builder.sx, self.builder.sy, self.builder.w, self.builder.h)
+    love.graphics.rectangle('line', self.cursor.sx, self.cursor.sy, self.cursor.w, self.cursor.h)
 end

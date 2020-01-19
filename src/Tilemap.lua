@@ -36,8 +36,6 @@ function Tilemap:load()
         return
     end
 
-    print(tiles)
-
     for __, tile in pairs(tiles) do
         self:setTile(tile.x, tile.y, tile.id)
     end
