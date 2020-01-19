@@ -1,6 +1,7 @@
 Class = require 'lib/class'
 Gui = require 'lib/Gspot'
 Json = require 'lib/json'
+Lzw = require 'lib/lzw'
 tilemath = require 'lib/tilemath'
 
 require 'lib/coordinates'
@@ -55,6 +56,7 @@ end
 function love.keypressed(key, code)
     love.keyboard.keysPressed[key] = true
     if key == 'escape' then
+        Builder.level.tilemap:save()
         love.event.quit()
     end
     if Gui.focus then
