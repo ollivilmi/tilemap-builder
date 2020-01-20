@@ -8,6 +8,7 @@ require 'lib/coordinates'
 require 'lib/Dequeue'
 require 'lib/geometry'
 require 'lib/tilemath'
+require 'lib/Listener'
 
 require 'src/LevelBuilder'
 
@@ -30,12 +31,14 @@ function love.load()
 end
 
 function love.update(dt)
+    Gui:update(dt)
     Builder:update(dt)
     clearInput()
 end
 
 function love.draw()
     Builder:render()
+    Gui:draw()
 end
 
 function love.mousepressed(x, y, button)

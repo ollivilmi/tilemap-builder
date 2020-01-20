@@ -22,15 +22,12 @@ function Tilemap:save()
     end
 
     love.filesystem.write(self.fileName, Lzw.compress(Json.encode(tiles)))
-
-    -- love.filesystem.write(self.tilemap, Lzw.compress(Json.encode(tiles)))
 end
 
 function Tilemap:load()
     local tiles = {}
 
     if love.filesystem.getInfo(self.fileName) then
-        -- tiles = Json.decode(Lzw.decompress(love.filesystem.read(self.fileName)))
         tiles = Json.decode(Lzw.decompress(love.filesystem.read(self.fileName)))
     else
         return

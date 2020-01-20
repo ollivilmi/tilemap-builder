@@ -5,6 +5,8 @@ function Rendering:init(builder)
     self.level = builder.level
     self.cursor = builder.cursor
 
+    Camera = Camera(builder.level.tileSize)
+
     self.tileTextures = {
         r = love.graphics.newImage('src/assets/tile/rock.png'),
         g = love.graphics.newImage('src/assets/tile/grass.png'),
@@ -26,7 +28,12 @@ function Rendering:renderResource(resource)
     love.graphics.draw(texture, x, y)
 end
 
+function Rendering:update(dt)
+    Camera:update(dt)
+end
+
 function Rendering:render()
+    Camera:set()
     love.graphics.setColor(1,1,1)
 
     local assets = self.level.world:getItems()
@@ -40,4 +47,5 @@ function Rendering:render()
     end
 
     love.graphics.rectangle('line', self.cursor.sx, self.cursor.sy, self.cursor.w, self.cursor.h)
+    Camera:unset()
 end
